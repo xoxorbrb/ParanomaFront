@@ -1,5 +1,3 @@
-@import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
-
 body {
   font-family: "nanumgothic", sans-serif;
 }
@@ -12,18 +10,19 @@ body {
 }
 
 .login-container {
-  background-image: url("../images/loginMoviePicture.webp");
+  background-color: black;
   background-size: cover;
   background-position: center;
-  width: 100%;
-  max-width: 1200px;
-  min-width: 1000px;
+  width: 1200px;
   height: 600px;
   display: flex;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 50px black;
   border-radius: 8px;
   position: relative;
-  transition: all 0.5s ease-in-out; /* 애니메이션 효과 추가 */
+}
+.input-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .login-card {
@@ -31,37 +30,68 @@ body {
   background-color: rgba(255, 255, 255, 1);
   width: 50%;
   height: 600px;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   border-radius: 8px;
   position: absolute; /* 절대 위치 설정 */
-  transition: all 0.3s ease-in-out; /* 애니메이션 효과 추가 */
+  transition: 0.5s ease-in-out; /* 애니메이션 효과 추가 */
 }
-
-.login-card-sign-right,
-.login-card-sign-left {
-  position: absolute;
+.icon-image {
+  filter: drop-shadow(0 0 0.75rem rgb(88, 106, 103));
+}
+.box-center {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  text-align: center; /* 텍스트 요소 가운데 정렬 */
-  padding: 0px 50px 50px 50px;
+  flex-direction: column;
+}
+.login-card-sign-left {
+  position: absolute;
+  top: 0; /* 부모 요소의 상단에 위치 */
+  left: 0; /* 부모 요소의 왼쪽에 위치 */
+  width: 50%; /* 부모 요소의 반을 차지 */
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
 
-.login-card-sign-left.show {
-  opacity: 1;
+.login-card-sign-right {
+  position: absolute;
+  top: 0; /* 부모 요소의 상단에 위치 */
+  left: 50%; /* 부모 요소의 왼쪽에서 50% 위치 */
+  width: 50%; /* 부모 요소의 나머지 반을 차지 */
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
-.login-card-sign-right.show {
+
+.login-container .show {
+  display: flex;
   opacity: 1;
 }
 
-.login-card-sign-left.hidden {
+.white {
+  color: white;
+}
+
+.none {
+  display: none;
+}
+
+.login-card-sign-left .hidden {
   opacity: 0;
 }
-.login-card-sign-right.hidden {
+.login-card-sign-right .hidden {
   opacity: 0;
 }
 
@@ -78,4 +108,13 @@ body {
 
 .login-container .signup {
   transform: translateX(100%); /* 회원가입 카드 기본 위치 */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
