@@ -74,23 +74,45 @@ const Login = () => {
         ) : (
           <div>
             <div className={`login-card-sign-left show`}>
-              <h2>ddds</h2>
-              <form>
-                <input type="text" placeholder="Username" />
-                <input type="password" placeholder="Password" />
-                <button type="submit">Login</button>
-              </form>
-              <button onClick={() => handleCurrentPage()}>Sign</button>
+              <div className="box-center">
+                <h2 className="white-text">Welcome back!</h2>
+                <span className="white-text fs12 mb20">
+                  Ready to continue where you left off? Log in to access your
+                  account.
+                </span>
+                <button
+                  className="write-outline-button"
+                  onClick={() => handleCurrentPage()}
+                >
+                  Signin
+                </button>
+              </div>
             </div>
 
             <div className={`login-card signup`}>
-              <div>
-                <h2>dddddd</h2>
-                <form>
-                  <input type="text" placeholder="Username" />
-                  <input type="email" placeholder="Email" />
-                  <input type="password" placeholder="Password" />
-                  <button type="submit">Sign Up</button>
+              <div className={"box-center"}>
+                <img
+                  className="icon-image"
+                  src="/resource/images/movie_write_icon.png"
+                  width={"100px"}
+                  height={"100px"}
+                  alt=""
+                />
+                <h2>Become a Member</h2>
+                <form className="form-container">
+                  <span className="left-aligned">
+                    Username or email address
+                  </span>
+                  <input
+                    className="gray-input"
+                    type="text"
+                    placeholder="Username"
+                  />
+                  <input
+                    className="gray-input"
+                    type="password"
+                    placeholder="Password"
+                  />
                 </form>
               </div>
             </div>
