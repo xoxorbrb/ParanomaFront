@@ -100,19 +100,49 @@ const Login = () => {
                 />
                 <h2>Become a Member</h2>
                 <form className="form-container">
-                  <span className="left-aligned">
-                    Username or email address
-                  </span>
-                  <input
-                    className="gray-input"
-                    type="text"
-                    placeholder="Username"
-                  />
-                  <input
-                    className="gray-input"
-                    type="password"
-                    placeholder="Password"
-                  />
+                  <div className="login-input-box">
+                    <input
+                      className="gray-input w270"
+                      type="text"
+                      placeholder="아이디"
+                    />
+                  </div>
+                  <div className="login-input-box">
+                    <input
+                      className="gray-input w270"
+                      type="password"
+                      placeholder="비밀번호"
+                    />
+                  </div>
+                  <div className="login-input-box">
+                    <input
+                      className="gray-input w270"
+                      type="text"
+                      placeholder="[선택] 이메일 주소"
+                    />
+                  </div>
+                  <div className="login-input-box">
+                    <input
+                      className="gray-input w270"
+                      type="text"
+                      placeholder="이름"
+                    />
+                  </div>
+                  <div className="login-input-box">
+                    <input
+                      className="gray-input w270"
+                      type="text"
+                      placeholder="생년월일 8자리"
+                      maxLength={8}
+                    />
+                  </div>
+                  <div className="login-input-box">
+                    <input
+                      className="gray-input w270"
+                      type="text"
+                      placeholder="휴대전화번호"
+                    />
+                  </div>
                 </form>
               </div>
             </div>
