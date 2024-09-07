@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+interface State {
+  currentPage: "login" | "signup";
+}
+
 const Login = () => {
   const [state, setState] = useState({
     currentPage: "login",
