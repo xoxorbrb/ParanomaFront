@@ -1,18 +1,115 @@
-import React, { useState } from "react";
-
+import React, { useState, useReducer } from "react";
+import XoUtil from "../../utils/XoUtil";
+import { debounce } from "../../utils/eventUtils";
 interface State {
   currentPage: "login" | "signup";
 }
 
-const Login = () => {
-  const [state, setState] = useState({
+interface FieldStatus<T> {
+  userId: T;
+  userName: T;
+  password: T;
+  email: T;
+  birthday: T;
+  phone: T;
+}
+interface SignUp {
+  userId: string;
+  userName: string;
+  password: string;
+  email: string;
+  birthday: string;
+  phone: string;
+
+  loadings: FieldStatus<boolean>;
+  errors: FieldStatus<string>;
+}
+
+const Login: React.FC = () => {
+  const [state, setState] = useState<State>({
     currentPage: "login",
   });
 
   const handleCurrentPage = () => {
-    setState((prevState) => ({
+    setState((prevState: State) => ({
       currentPage: prevState.currentPage === "login" ? "signup" : "login",
     }));
+  };
+
+  const initialSignUpState: SignUp = {
+    userId: "",
+    userName: "",
+    password: "",
+    email: "",
+    birthday: "",
+    phone: "",
+    errors: {
+      userId: "",
+      userName: "",
+      password: "",
+      email: "",
+      birthday: "",
+      phone: "",
+    },
+    loadings: {
+      userId: false,
+      userName: false,
+      password: false,
+      email: false,
+      birthday: false,
+      phone: false,
+    },
+  };
+
+  const signUpReducer = (state: SignUp, action: any): SignUp => {
+    // 로딩, 필드, 에러 관리
+    switch (action.type) {
+      case "SET_LOADING":
+        return {
+          ...state,
+          loadings: {
+            ...state.loadings,
+            [action.payload.field]: action.payload.value,
+          },
+        };
+      case "SET_FIELD":
+        return {
+          ...state,
+          [action.payload.field]: action.payload.value,
+        };
+      case "SET_ERROR":
+        return {
+          ...state,
+          errors: {
+            ...state.errors,
+            [action.payload.field]: action.payload.value,
+          },
+        };
+      default:
+        return state;
+    }
+  };
+
+  const [regex, regDispatch] = useReducer(signUpReducer, initialSignUpState);
+
+  const checkRegex = async (inputValue: string, field: string) => {
+    regDispatch({
+      type: "SET_LOADING",
+      payload: { field: field, value: false },
+    });
+
+    let url = "/regex";
+    let data: Record<string, any> = {};
+
+    data.inputValue = inputValue;
+    data.field = field;
+
+    let response: Record<string, any> = await XoUtil.ajax(
+      url,
+      "POST",
+      data,
+      () => {}
+    );
   };
 
   return (
