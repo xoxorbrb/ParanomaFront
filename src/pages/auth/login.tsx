@@ -114,6 +114,10 @@ const Login: React.FC = () => {
     if (response.status === "success") {
     } else {
     }
+    // regDispatch({
+    //   type: "SET_LOADING",
+    //   payload: { field: field, value: true },
+    // });
   };
 
   return (
