@@ -98,6 +98,11 @@ const Login: React.FC = () => {
       payload: { field: field, value: false },
     });
 
+    regDispatch({
+      type: "SET_FIELD",
+      payload: { field: field, value: inputValue },
+    });
+
     let url = "/regex";
     let data: Record<string, any> = {};
 
@@ -112,12 +117,7 @@ const Login: React.FC = () => {
     );
 
     if (response.status === "success") {
-    } else {
     }
-    // regDispatch({
-    //   type: "SET_LOADING",
-    //   payload: { field: field, value: true },
-    // });
   };
 
   return (
@@ -213,6 +213,8 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="아이디"
+                      value={regex.userId}
+                      onChange={(e) => checkRegex(e.target.value, "userId")}
                     />
                   </div>
                   <div className="login-input-box">
