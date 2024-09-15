@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import XoUtil from "../../utils/XoUtil";
 import { debounce } from "../../utils/eventUtils";
 interface State {
@@ -98,11 +98,6 @@ const Login: React.FC = () => {
       payload: { field: field, value: false },
     });
 
-    regDispatch({
-      type: "SET_FIELD",
-      payload: { field: field, value: inputValue },
-    });
-
     let url = "/regex";
     let data: Record<string, any> = {};
 
@@ -119,6 +114,17 @@ const Login: React.FC = () => {
     if (response.status === "success") {
     }
   };
+
+  const handleInput = (field: string, inputValue: string) => {
+    regDispatch({
+      type: "SET_FIELD",
+      payload: { field: field, value: inputValue },
+    });
+    debouncedCheckRegex(field, inputValue);
+  };
+  const debouncedCheckRegex = debounce((field: string, inputValue: string) => {
+    checkRegex(field, inputValue);
+  }, 500);
 
   return (
     <div className="login-page">
@@ -214,7 +220,7 @@ const Login: React.FC = () => {
                       type="text"
                       placeholder="아이디"
                       value={regex.userId}
-                      onChange={(e) => checkRegex(e.target.value, "userId")}
+                      onChange={(e) => handleInput("userId", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -222,6 +228,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="password"
                       placeholder="비밀번호"
+                      onChange={(e) => handleInput("password", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -229,6 +236,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="[선택] 이메일 주소"
+                      onChange={(e) => handleInput("email", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -236,6 +244,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="이름"
+                      onChange={(e) => handleInput("userName", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -244,6 +253,7 @@ const Login: React.FC = () => {
                       type="text"
                       placeholder="생년월일 8자리"
                       maxLength={8}
+                      onChange={(e) => handleInput("birthday", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -251,6 +261,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="휴대전화번호"
+                      onChange={(e) => handleInput("phone", e.target.value)}
                     />
                   </div>
                 </form>
