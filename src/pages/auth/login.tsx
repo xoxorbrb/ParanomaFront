@@ -92,7 +92,7 @@ const Login: React.FC = () => {
 
   const [regex, regDispatch] = useReducer(signUpReducer, initialSignUpState);
 
-  const checkRegex = async (inputValue: string, field: string) => {
+  const checkRegex = async (field: string, inputValue: string) => {
     regDispatch({
       type: "SET_LOADING",
       payload: { field: field, value: false },
