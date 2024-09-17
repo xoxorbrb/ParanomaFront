@@ -45,3 +45,4 @@ yarn-error.log*
 
 # Git 관련 packfile 제외
 *.pack.gz
+

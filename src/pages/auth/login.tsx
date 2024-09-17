@@ -98,7 +98,7 @@ const Login: React.FC = () => {
       payload: { field: field, value: false },
     });
 
-    let url = "/regex";
+    let url = "/at/lo001";
     let data: Record<string, any> = {};
 
     data.inputValue = inputValue;
