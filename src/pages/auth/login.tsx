@@ -1,11 +1,12 @@
-import React, { useState, useReducer, useCallback } from "react";
-import XoUtil from "../../utils/XoUtil";
-import { debounce } from "../../utils/eventUtils";
+import React, { useState, useReducer } from "react";
+import XoUtil from "@utils/XoUtil";
+import { useDebounce } from "@utils/eventUtil";
 interface State {
-  currentPage: "login" | "signup";
+  currentPage: "login" | "signup"; // 로그인, 회원가입 페이지 전환을 위함
 }
 
 interface FieldStatus<T> {
+  // error, loading도 함께 정의하기 위해서
   userId: T;
   userName: T;
   password: T;
@@ -30,13 +31,14 @@ const Login: React.FC = () => {
     currentPage: "login",
   });
 
-  const handleCurrentPage = () => {
+  const HandleCurrentPage = () => {
     setState((prevState: State) => ({
       currentPage: prevState.currentPage === "login" ? "signup" : "login",
     }));
   };
 
   const initialSignUpState: SignUp = {
+    // 회원가입 시 사용자 정보
     userId: "",
     userName: "",
     password: "",
@@ -44,6 +46,7 @@ const Login: React.FC = () => {
     birthday: "",
     phone: "",
     errors: {
+      // 정규식 오류 시 이유
       userId: "",
       userName: "",
       password: "",
@@ -52,6 +55,7 @@ const Login: React.FC = () => {
       phone: "",
     },
     loadings: {
+      // 정규식 리턴 로딩 확인
       userId: false,
       userName: false,
       password: false,
@@ -61,7 +65,7 @@ const Login: React.FC = () => {
     },
   };
 
-  const signUpReducer = (state: SignUp, action: any): SignUp => {
+  const SignUpReducer = (state: SignUp, action: any): SignUp => {
     // 로딩, 필드, 에러 관리
     switch (action.type) {
       case "SET_LOADING":
@@ -90,15 +94,15 @@ const Login: React.FC = () => {
     }
   };
 
-  const [regex, regDispatch] = useReducer(signUpReducer, initialSignUpState);
+  const [regex, regDispatch] = useReducer(SignUpReducer, initialSignUpState);
 
-  const checkRegex = async (field: string, inputValue: string) => {
+  const CheckRegex = async (field: string, inputValue: string) => {
     regDispatch({
       type: "SET_LOADING",
       payload: { field: field, value: false },
     });
 
-    let url = "/at/lo001";
+    let url = "/at/lo001a01";
     let data: Record<string, any> = {};
 
     data.inputValue = inputValue;
@@ -115,16 +119,19 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleInput = (field: string, inputValue: string) => {
+  const HandleInput = (field: string, inputValue: string) => {
     regDispatch({
       type: "SET_FIELD",
       payload: { field: field, value: inputValue },
     });
     debouncedCheckRegex(field, inputValue);
   };
-  const debouncedCheckRegex = debounce((field: string, inputValue: string) => {
-    checkRegex(field, inputValue);
-  }, 500);
+  const debouncedCheckRegex = useDebounce(
+    (field: string, inputValue: string) => {
+      CheckRegex(field, inputValue);
+    },
+    1000
+  );
 
   return (
     <div className="login-page">
@@ -159,7 +166,7 @@ const Login: React.FC = () => {
                 </form>
                 <button
                   className="text-button gray-text mb20"
-                  onClick={() => handleCurrentPage()}
+                  onClick={() => HandleCurrentPage()}
                 >
                   Forgot your password?
                 </button>
@@ -178,7 +185,7 @@ const Login: React.FC = () => {
                 </span>
                 <button
                   className="write-outline-button"
-                  onClick={() => handleCurrentPage()}
+                  onClick={() => HandleCurrentPage()}
                 >
                   Signup
                 </button>
@@ -196,7 +203,7 @@ const Login: React.FC = () => {
                 </span>
                 <button
                   className="write-outline-button"
-                  onClick={() => handleCurrentPage()}
+                  onClick={() => HandleCurrentPage()}
                 >
                   Signin
                 </button>
@@ -220,7 +227,7 @@ const Login: React.FC = () => {
                       type="text"
                       placeholder="아이디"
                       value={regex.userId}
-                      onChange={(e) => handleInput("userId", e.target.value)}
+                      onChange={(e) => HandleInput("userId", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -228,7 +235,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="password"
                       placeholder="비밀번호"
-                      onChange={(e) => handleInput("password", e.target.value)}
+                      onChange={(e) => HandleInput("password", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -236,7 +243,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="[선택] 이메일 주소"
-                      onChange={(e) => handleInput("email", e.target.value)}
+                      onChange={(e) => HandleInput("email", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -244,7 +251,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="이름"
-                      onChange={(e) => handleInput("userName", e.target.value)}
+                      onChange={(e) => HandleInput("userName", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -253,7 +260,7 @@ const Login: React.FC = () => {
                       type="text"
                       placeholder="생년월일 8자리"
                       maxLength={8}
-                      onChange={(e) => handleInput("birthday", e.target.value)}
+                      onChange={(e) => HandleInput("birthday", e.target.value)}
                     />
                   </div>
                   <div className="login-input-box">
@@ -261,7 +268,7 @@ const Login: React.FC = () => {
                       className="gray-input w270"
                       type="text"
                       placeholder="휴대전화번호"
-                      onChange={(e) => handleInput("phone", e.target.value)}
+                      onChange={(e) => HandleInput("phone", e.target.value)}
                     />
                   </div>
                 </form>
