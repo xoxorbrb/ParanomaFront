@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from "react";
 import XoUtil from "@utils/XoUtil";
 import { useDebounce } from "@utils/eventUtil";
+import Image from "next/image";
 interface State {
   currentPage: "login" | "signup"; // 로그인, 회원가입 페이지 전환을 위함
 }
@@ -140,11 +141,11 @@ const Login: React.FC = () => {
           <div>
             <div className={`login-card signin`}>
               <div className={"box-center"}>
-                <img
+                <Image
                   className="icon-image"
                   src="/resource/images/movie_write_icon.png"
-                  width={"100px"}
-                  height={"100px"}
+                  width={"100"}
+                  height={"100"}
                   alt=""
                 />
                 <h2>Sign in to Paranoma</h2>
@@ -212,11 +213,11 @@ const Login: React.FC = () => {
 
             <div className={`login-card signup`}>
               <div className={"box-center"}>
-                <img
+                <Image
                   className="icon-image"
                   src="/resource/images/movie_write_icon.png"
-                  width={"100px"}
-                  height={"100px"}
+                  width={"100"}
+                  height={"100"}
                   alt=""
                 />
                 <h2>Become a Member</h2>
