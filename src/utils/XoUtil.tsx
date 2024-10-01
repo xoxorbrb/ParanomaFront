@@ -4,17 +4,18 @@ export const XoUtil = {
   //Ajax request handler
   ajax: async function (
     url: string,
-    method: "GET" | "POST" | "PUT" | "PATCH",
+    type: "GET" | "POST" | "PUT" | "PATCH",
     data: Record<string, any>,
     loadingCallBack?: (loadingCallBack: boolean) => void
   ): Promise<any> {
     if (loadingCallBack) loadingCallBack(true);
 
+    let apiUrl = `${process.env.NEXT_PUBLIC_API_URL}${url}`;
     try {
       const response: AxiosResponse<any> = await axios({
-        url,
-        method,
-        data,
+        url: apiUrl,
+        method: type,
+        data: data,
       });
 
       if (loadingCallBack) loadingCallBack(false);
