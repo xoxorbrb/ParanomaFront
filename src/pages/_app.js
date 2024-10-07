@@ -4,16 +4,16 @@ import "../styles/css/common/common.css";
 import "../utils/XoUtil.tsx";
 import HEAD from "next/head";
 
-function Paranoma({ Component, pageProps }) {
+function Panorama({ Component, pageProps }) {
   return (
     <>
       <HEAD>
         <link rel="icon" href="/resource/images/favicon.png" />
-        <title>Paranoma</title>
+        <title>Panorama</title>
       </HEAD>
       <Component {...pageProps} />
     </>
   );
 }
 
-export default Paranoma;
+export default Panorama;

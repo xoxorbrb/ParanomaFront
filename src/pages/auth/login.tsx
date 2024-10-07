@@ -143,12 +143,12 @@ const Login: React.FC = () => {
               <div className={"box-center"}>
                 <Image
                   className="icon-image"
-                  src="/resource/images/movie_write_icon.png"
+                  src="/resource/images/movie_black_icon.png"
                   width={"100"}
                   height={"100"}
                   alt=""
                 />
-                <h2>Sign in to Paranoma</h2>
+                <h2>Sign in to Panorama</h2>
 
                 <form className="form-container">
                   <span className="left-aligned">
@@ -215,7 +215,7 @@ const Login: React.FC = () => {
               <div className={"box-center"}>
                 <Image
                   className="icon-image"
-                  src="/resource/images/movie_write_icon.png"
+                  src="/resource/images/movie_black_icon.png"
                   width={"100"}
                   height={"100"}
                   alt=""
