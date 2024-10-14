@@ -34,7 +34,7 @@ const Login: React.FC = () => {
 
   const HandleCurrentPage = () => {
     setState((prevState: State) => ({
-      currentPage: prevState.currentPage === "login" ? "signup" : "login",
+      currentPage: prevState.currentPage === "login" ? "signup" : "login", // 로그인 페이지, 회원가입 페이지 전환
     }));
   };
 
@@ -103,7 +103,7 @@ const Login: React.FC = () => {
       payload: { field: field, value: false },
     });
 
-    let url = "/at/lo001a01";
+    let url = "/sg/s0a01";
     let data: Record<string, any> = {};
 
     data.inputValue = inputValue;
@@ -137,7 +137,7 @@ const Login: React.FC = () => {
   return (
     <div className="login-page">
       <div className="login-container">
-        {state.currentPage === "login" ? (
+        {state.currentPage === "login" ? ( // 로그인 페이지
           <div>
             <div className={`login-card signin`}>
               <div className={"box-center"}>
@@ -194,6 +194,7 @@ const Login: React.FC = () => {
             </div>
           </div>
         ) : (
+          // 회원가입 페이지
           <div>
             <div className={`login-card-sign-left show`}>
               <div className="box-center">
@@ -222,15 +223,19 @@ const Login: React.FC = () => {
                 />
                 <h2>Become a Member</h2>
                 <form className="form-container">
-                  <div className="login-input-box">
+                  <div className="f-box">
                     <input
-                      className="gray-input w270"
+                      className="gray-input w180 mr5"
                       type="text"
                       placeholder="아이디"
                       value={regex.userId}
                       onChange={(e) => HandleInput("userId", e.target.value)}
                     />
+                    <button className="btn btn-dark w80 fs12 ml5">
+                      중복확인
+                    </button>
                   </div>
+
                   <div className="login-input-box">
                     <input
                       className="gray-input w270"

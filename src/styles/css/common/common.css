@@ -1,3 +1,17 @@
+.f-box {
+  display: flex;
+}
+
+.m5 {
+  margin: 5px;
+}
+.ml5 {
+  margin-left: 5px;
+}
+
+.mr5 {
+  margin-right: 5px;
+}
 .mb4 {
   margin-bottom: 4px;
 }
@@ -33,6 +47,18 @@
   margin-right: auto;
 }
 
+.w50 {
+  width: 50px;
+}
+.w80 {
+  width: 80px;
+}
+.w180 {
+  width: 180px;
+}
+.w240 {
+  width: 240px;
+}
 .w270 {
   width: 270px;
 }
