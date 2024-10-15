@@ -113,7 +113,12 @@ const Login: React.FC = () => {
       url,
       "POST",
       data,
-      () => {}
+      (isLoading: boolean) => {
+        // 로딩 중일 때 스피너 필요 (개발 예정)
+        if (isLoading) {
+        } else {
+        }
+      }
     );
 
     if (response.status === "success") {
@@ -133,6 +138,26 @@ const Login: React.FC = () => {
     },
     1000
   );
+
+  const dupleCheck: Record<string, any> = async (id: string) => {
+    // TODO: id 중복체크 API
+    let url = "/sg/s01a02";
+
+    let data: Record<string, any> = {};
+    data.id = id;
+
+    let response: Record<string, any> = await XoUtil.ajax(
+      url,
+      "POST",
+      data,
+      (isLoading: boolean) => {
+        // 로딩 중일 때 스피너 필요 (개발 예정)
+        if (isLoading) {
+        } else {
+        }
+      }
+    );
+  }; // 아이디 중복체크
 
   return (
     <div className="login-page">
@@ -231,7 +256,10 @@ const Login: React.FC = () => {
                       value={regex.userId}
                       onChange={(e) => HandleInput("userId", e.target.value)}
                     />
-                    <button className="btn btn-dark w80 fs12 ml5">
+                    <button
+                      className="btn btn-dark w80 fs12 ml5"
+                      onClick={() => dupleCheck()}
+                    >
                       중복확인
                     </button>
                   </div>
