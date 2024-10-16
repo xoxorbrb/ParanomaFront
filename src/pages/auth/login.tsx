@@ -139,7 +139,7 @@ const Login: React.FC = () => {
     1000
   );
 
-  const dupleCheck: Record<string, any> = async (id: string) => {
+  const dupleCheck = async (id: string) => {
     // TODO: id 중복체크 API
     let url = "/sg/s01a02";
 
@@ -258,7 +258,7 @@ const Login: React.FC = () => {
                     />
                     <button
                       className="btn btn-dark w80 fs12 ml5"
-                      onClick={() => dupleCheck()}
+                      onClick={() => dupleCheck(regex.userId)}
                     >
                       중복확인
                     </button>
