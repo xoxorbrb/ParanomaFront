@@ -23,7 +23,7 @@ interface SignUp {
   birthday: string;
   phone: string;
 
-  loadings: FieldStatus<boolean>;
+  loadings: FieldStatus<string>;
   errors: FieldStatus<string>;
 }
 
@@ -57,12 +57,12 @@ const Login: React.FC = () => {
     },
     loadings: {
       // 정규식 리턴 로딩 확인
-      userId: false,
-      userName: false,
-      password: false,
-      email: false,
-      birthday: false,
-      phone: false,
+      userId: "",
+      userName: "",
+      password: "",
+      email: "",
+      birthday: "",
+      phone: "",
     },
   };
 
@@ -98,11 +98,6 @@ const Login: React.FC = () => {
   const [regex, regDispatch] = useReducer(SignUpReducer, initialSignUpState);
 
   const CheckRegex = async (field: string, inputValue: string) => {
-    regDispatch({
-      type: "SET_LOADING",
-      payload: { field: field, value: false },
-    });
-
     let url = "/sg/s0a01";
     let data: Record<string, any> = {};
 
@@ -114,9 +109,28 @@ const Login: React.FC = () => {
       "POST",
       data,
       (isLoading: boolean) => {
-        // 로딩 중일 때 스피너 필요 (개발 예정)
         if (isLoading) {
+          //로딩 중일 때 스피너
+          regDispatch({
+            type: "SET_LOADING",
+            payload: {
+              field: field,
+              value: (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ),
+            },
+          });
         } else {
+          //스피너 없애기
+          regDispatch({
+            type: "SET_LOADING",
+            payload: {
+              field: field,
+              value: "",
+            },
+          });
         }
       }
     );
@@ -139,7 +153,11 @@ const Login: React.FC = () => {
     1000
   );
 
-  const dupleCheck = async (id: string) => {
+  const dupleCheck = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
+    event.preventDefault();
     // TODO: id 중복체크 API
     let url = "/sg/s01a02";
 
@@ -249,16 +267,19 @@ const Login: React.FC = () => {
                 <h2>Become a Member</h2>
                 <form className="form-container">
                   <div className="f-box">
-                    <input
-                      className="gray-input w180 mr5"
-                      type="text"
-                      placeholder="아이디"
-                      value={regex.userId}
-                      onChange={(e) => HandleInput("userId", e.target.value)}
-                    />
+                    <div className="login-input-box">
+                      <input
+                        className="gray-input w180 mr5"
+                        type="text"
+                        placeholder="아이디"
+                        value={regex.userId}
+                        onChange={(e) => HandleInput("userId", e.target.value)}
+                      />
+                      {regex.loadings.userId}
+                    </div>
                     <button
                       className="btn btn-dark w80 fs12 ml5"
-                      onClick={() => dupleCheck(regex.userId)}
+                      onClick={(e) => dupleCheck(e, regex.userId)}
                     >
                       중복확인
                     </button>
